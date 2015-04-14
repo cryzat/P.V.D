@@ -26,7 +26,8 @@ public class ServidorPersistencia {
         // TODO code application logic here
         IUsuarioDAO usuario=FabricaDAOJPA.crearUsuarioDAO();
         try {
-            List<Persona> personas=usuario.consultarUsuarioRegistrados("1");
+            List<Persona> personas;
+            personas = usuario.consultarUsuarioRegistrados("J");
             for (Persona persona : personas) {
                 System.out.println(persona.getNombre());
             }

@@ -16,13 +16,13 @@ import javax.persistence.*;
 @Inheritance(strategy = InheritanceType.JOINED)
 @NamedQueries(value = {
     @NamedQuery(name = Persona.CONSULTAR_USUARIOS_REGISTRADOS,
-            query = "SELECT p FROM Persona p"),
+            query = "SELECT p FROM Persona p WHERE p.nombre LIKE ?1 AND p.password is not null"),
     @NamedQuery(name = Persona.CONSULTAR_USUARIOS_NO_REGISTRADOS,
-            query = "SELECT p FROM Persona p WHERE p.numeroDocumento LIKE ?1 AND p.password is null"),})
+            query = "SELECT p FROM Persona p WHERE p.nombre LIKE ?1 AND p.password is null"),})
 public class Persona implements Serializable {
 
-    public static final String CONSULTAR_USUARIOS_REGISTRADOS = "registrados.PersonaConsulta";
-    public static final String CONSULTAR_USUARIOS_NO_REGISTRADOS = "noRegistrados.PersonaConsulta";
+    public static final String CONSULTAR_USUARIOS_REGISTRADOS = "Persona.consultarUsuariosRegistrados";
+    public static final String CONSULTAR_USUARIOS_NO_REGISTRADOS = "Persona.consultarUsuariosNoRegistrados";
     @Id
     @Column(name = "no_documento")
     private long numeroDocumento;

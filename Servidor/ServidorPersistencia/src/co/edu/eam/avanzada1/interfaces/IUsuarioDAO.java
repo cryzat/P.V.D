@@ -13,9 +13,9 @@ import java.util.List;
  */
 public interface IUsuarioDAO {
 
-    public List<Persona> consultarUsuarioRegistrados(String objeto) throws Exception;
+    public List<Persona> consultarUsuarioRegistrados(Object valor) throws Exception;
 
-    public List<Persona> consultarUsuarioNoRegistrados(String objeto) throws Exception;
+    public List<Persona> consultarUsuarioNoRegistrados(String valor) throws Exception;
 
     public void editar(Persona usuario) throws Exception;
 }

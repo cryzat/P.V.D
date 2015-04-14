@@ -23,25 +23,25 @@ public class UsuarioDAOJPA implements IUsuarioDAO {
     }
 
     @Override
-    public List<Persona> consultarUsuarioRegistrados(String objeto) throws Exception {
-        Query consulta = entity.createNamedQuery(Persona.CONSULTAR_USUARIOS_REGISTRADOS);
-        consulta.setParameter(1, objeto);
-        List<Persona> personas = consulta.getResultList();
-        return personas;
-    }
-
-    @Override
-    public List<Persona> consultarUsuarioNoRegistrados(String objeto) throws Exception {
-        Query consulta = entity.createNamedQuery(Persona.CONSULTAR_USUARIOS_NO_REGISTRADOS);
-        consulta.setParameter(1, objeto);
-        List<Persona> personas = consulta.getResultList();
-        return personas;
-    }
-
-    @Override
     public void editar(Persona usuario) throws Exception {
         entity.getTransaction().begin();
         entity.merge(usuario);
         entity.getTransaction().commit();
+    }
+
+    @Override
+    public List<Persona> consultarUsuarioRegistrados(Object valor) throws Exception {
+        Query consulta = entity.createNamedQuery(Persona.CONSULTAR_USUARIOS_REGISTRADOS);
+        consulta.setParameter(1, valor+"%");
+        List<Persona> personas = consulta.getResultList();
+        return personas;
+    }
+
+    @Override
+    public List<Persona> consultarUsuarioNoRegistrados(String valor) throws Exception {
+        Query consulta = entity.createNamedQuery(Persona.CONSULTAR_USUARIOS_NO_REGISTRADOS);
+        
+        List<Persona> personas = consulta.getResultList();
+        return personas;
     }
 }
