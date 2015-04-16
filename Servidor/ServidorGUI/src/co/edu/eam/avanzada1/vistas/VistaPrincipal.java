@@ -126,7 +126,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMIEstadoBloqueoUsuariosActionPerformed
 
     private void jMIListaUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMIListaUsuariosActionPerformed
-        // TODO add your handling code here:
+        jDPVista.add(new VentanaListaUsuarios(),0);
     }//GEN-LAST:event_jMIListaUsuariosActionPerformed
 
     /**

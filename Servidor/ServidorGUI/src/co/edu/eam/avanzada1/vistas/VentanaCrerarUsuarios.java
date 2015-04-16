@@ -33,6 +33,7 @@ public class VentanaCrerarUsuarios extends javax.swing.JInternalFrame {
         setVisible(true);
         setResizable(false);
         setClosable(true);
+        setIconifiable(true);
         setBounds(0, 6, 492, 340);
     }
 
@@ -57,6 +58,8 @@ public class VentanaCrerarUsuarios extends javax.swing.JInternalFrame {
         jLIdUsuario = new javax.swing.JLabel();
         jBContinuar = new javax.swing.JButton();
         jBCancelar = new javax.swing.JButton();
+
+        setTitle("Crear Usuarios");
 
         jTUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

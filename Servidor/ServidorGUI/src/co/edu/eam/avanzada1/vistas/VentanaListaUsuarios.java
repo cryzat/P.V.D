@@ -5,29 +5,32 @@
  */
 package co.edu.eam.avanzada1.vistas;
 
-import co.edu.eam.avanzada1.controladores.ControladorEliminarUsuarios;
+import co.edu.eam.avanzada1.controladores.ControladorListaUsuarios;
 import co.edu.eam.avanzada1.entidades.Director;
 import co.edu.eam.avanzada1.entidades.Docente;
 import co.edu.eam.avanzada1.entidades.Estudiante;
 import co.edu.eam.avanzada1.entidades.Persona;
 import java.util.List;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Se quiere Se puede
  */
-public class VentanaEliminarUsuarios extends javax.swing.JInternalFrame {
+public class VentanaListaUsuarios extends javax.swing.JInternalFrame {
 
-    private ControladorEliminarUsuarios controlador;
+    private ControladorListaUsuarios controlador;
+    private static final String BLOQUEADO = "Bloqueado";
+    private static final String DESBLOQUEADO = "Desbloqueado";
+    private static final String DESBLOQUEAR = "Desbloquear";
+    private static final String BLOQUEAR = "Bloquear";
 
     /**
-     * Creates new form VentanaCrerarEliminarUsuarios
+     * Creates new form VentanaEstadoBloqueoUsuarios
      */
-    public VentanaEliminarUsuarios() {
+    public VentanaListaUsuarios() {
         initComponents();
-        this.controlador = new ControladorEliminarUsuarios();
+        this.controlador = new ControladorListaUsuarios();
         setVisible(true);
         setResizable(false);
         setClosable(true);
@@ -43,26 +46,18 @@ public class VentanaEliminarUsuarios extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        jLTitulo = new javax.swing.JLabel();
         jTFFiltroBusqueda = new javax.swing.JTextField();
-        jBEliminar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTUsuarios = new javax.swing.JTable();
 
-        setTitle("Eliminar Usuarios");
+        setTitle("Lista Usuarios");
 
-        jLabel1.setText("Filtro de busqueda:");
+        jLTitulo.setText("Filtro de busqueda:");
 
         jTFFiltroBusqueda.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTFFiltroBusquedaKeyReleased(evt);
-            }
-        });
-
-        jBEliminar.setText("ELIMINAR");
-        jBEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBEliminarActionPerformed(evt);
             }
         });
 
@@ -71,14 +66,14 @@ public class VentanaEliminarUsuarios extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Identificación", "Cargo", "Nombre", "Apellido", "Estado"
+                "Identificación", "Cargo", "Nombre", "Apellido", "Correo Elec", "Telefono", "Estado"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -96,54 +91,30 @@ public class VentanaEliminarUsuarios extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 682, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jTFFiltroBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(180, 180, 180)
-                        .addComponent(jBEliminar)))
-                .addGap(14, 33, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jScrollPane1)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLTitulo)
+                            .addComponent(jTFFiltroBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addComponent(jLabel1)
+                .addContainerGap()
+                .addComponent(jLTitulo)
                 .addGap(11, 11, 11)
                 .addComponent(jTFFiltroBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(17, 17, 17)
-                .addComponent(jBEliminar)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jBEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEliminarActionPerformed
-        try {
-            if (jTUsuarios.getSelectedRow() >= 0) {
-                long identificacion = (long) jTUsuarios.getValueAt(jTUsuarios.getSelectedRow(), 0);
-                String id = identificacion + "";
-                int dato = JOptionPane.showConfirmDialog(null, "Desea eliminar el usuario con identificacion: " + id, "Eliminar Usuario",
-                        0, JOptionPane.QUESTION_MESSAGE);
-                if (dato == JOptionPane.YES_OPTION) {
-                    controlador.elimnarUsuario(identificacion);
-                    DefaultTableModel dtm = (DefaultTableModel) jTUsuarios.getModel();
-                    dtm.removeRow(jTUsuarios.getSelectedRow());
-                }
-            }
-        } catch (Exception e) {
-        }
-    }//GEN-LAST:event_jBEliminarActionPerformed
 
     private void jTFFiltroBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFFiltroBusquedaKeyReleased
         listarUsuariosRegistrados(jTFFiltroBusqueda.getText());
@@ -155,10 +126,12 @@ public class VentanaEliminarUsuarios extends javax.swing.JInternalFrame {
             DefaultTableModel tabla = (DefaultTableModel) jTUsuarios.getModel();
             tabla.setRowCount(0);
             for (Persona usuario : usuarios) {
-                Object[] fila = new Object[5];
+                Object[] fila = new Object[7];
                 fila[0] = usuario.getNumeroDocumento();
                 fila[2] = usuario.getNombre();
                 fila[3] = usuario.getApellido();
+                fila[4] = usuario.getCorreo();
+                fila[5] = usuario.getTelefono();
                 if (usuario instanceof Estudiante) {
                     fila[1] = "Estudiante";
                 } else if (usuario instanceof Docente) {
@@ -166,10 +139,10 @@ public class VentanaEliminarUsuarios extends javax.swing.JInternalFrame {
                 } else if (usuario instanceof Director) {
                     fila[1] = "Director";
                 }
-                if(usuario.isBloqueado()){
-                    fila[4]="Bloqueado";
-                }else{
-                    fila[4]="Desbloqueado";
+                if (usuario.isBloqueado()) {
+                    fila[6] = BLOQUEADO;
+                } else {
+                    fila[6] = DESBLOQUEADO;
                 }
                 tabla.addRow(fila);
             }
@@ -177,10 +150,8 @@ public class VentanaEliminarUsuarios extends javax.swing.JInternalFrame {
             ex.printStackTrace();
         }
     }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBEliminar;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLTitulo;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTFFiltroBusqueda;
     private javax.swing.JTable jTUsuarios;

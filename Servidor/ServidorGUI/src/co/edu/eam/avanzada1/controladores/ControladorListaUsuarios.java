@@ -13,19 +13,15 @@ import java.util.List;
  *
  * @author Se quiere Se puede
  */
-public class ControladorEstadoBloqueoUsuarios {
+public class ControladorListaUsuarios {
     
     private UsuarioBO usuarioBo;
 
-    public ControladorEstadoBloqueoUsuarios() {
+    public ControladorListaUsuarios() {
         this.usuarioBo=new UsuarioBO();
     }
        
     public List<Persona> listarUsuarioRegistrados(String parametro)throws Exception{
         return usuarioBo.listarUsuariosRegistrados(parametro);
-    }
-    
-    public void cambiarEstadoBloqueoUsuario(long identificacion,boolean valor)throws Exception{
-        usuarioBo.cambiarEstadoBloqueo(identificacion, valor);
     }
 }

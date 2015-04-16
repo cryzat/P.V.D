@@ -22,6 +22,10 @@ import javax.swing.table.DefaultTableModel;
 public class VentanaEstadoBloqueoUsuarios extends javax.swing.JInternalFrame {
 
     private ControladorEstadoBloqueoUsuarios controlador;
+    private static final String BLOQUEADO = "Bloqueado";
+    private static final String DESBLOQUEADO = "Desbloqueado";
+    private static final String DESBLOQUEAR = "Desbloquear";
+    private static final String BLOQUEAR = "Bloquear";
 
     /**
      * Creates new form VentanaEstadoBloqueoUsuarios
@@ -32,6 +36,7 @@ public class VentanaEstadoBloqueoUsuarios extends javax.swing.JInternalFrame {
         setVisible(true);
         setResizable(false);
         setClosable(true);
+        setIconifiable(true);
     }
 
     /**
@@ -47,7 +52,9 @@ public class VentanaEstadoBloqueoUsuarios extends javax.swing.JInternalFrame {
         jTFFiltroBusqueda = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTUsuarios = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        jBEstadoBloqueo = new javax.swing.JButton();
+
+        setTitle("Bloquear / Desbloquear Usuarios");
 
         jLTitulo.setText("Filtro de busqueda:");
 
@@ -92,9 +99,9 @@ public class VentanaEstadoBloqueoUsuarios extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(jTUsuarios);
 
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jBEstadoBloqueo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jBEstadoBloqueoActionPerformed(evt);
             }
         });
 
@@ -114,7 +121,7 @@ public class VentanaEstadoBloqueoUsuarios extends javax.swing.JInternalFrame {
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(176, 176, 176)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBEstadoBloqueo, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -127,7 +134,7 @@ public class VentanaEstadoBloqueoUsuarios extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jBEstadoBloqueo, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
@@ -135,7 +142,7 @@ public class VentanaEstadoBloqueoUsuarios extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTFFiltroBusquedaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFFiltroBusquedaKeyReleased
-        listarUsuariosNoRegistrados(jTFFiltroBusqueda.getText());
+        listarUsuariosRegistrados(jTFFiltroBusqueda.getText());
     }//GEN-LAST:event_jTFFiltroBusquedaKeyReleased
 
     private void jTUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTUsuariosMouseClicked
@@ -149,9 +156,9 @@ public class VentanaEstadoBloqueoUsuarios extends javax.swing.JInternalFrame {
             int fila = jTUsuarios.getSelectedRow();
             String estado;
             if (fila == jTUsuarios.getRowCount() - 1) {
-                estado = (String) jTUsuarios.getValueAt(fila, 4);                
-            }else{
-                estado = (String) jTUsuarios.getValueAt(fila+1, 4);
+                estado = (String) jTUsuarios.getValueAt(fila, 4);
+            } else {
+                estado = (String) jTUsuarios.getValueAt(fila + 1, 4);
             }
             ponerNombreBoton(estado);
         }
@@ -159,30 +166,49 @@ public class VentanaEstadoBloqueoUsuarios extends javax.swing.JInternalFrame {
             int fila = jTUsuarios.getSelectedRow();
             String estado;
             if (fila == 0) {
-                estado = (String) jTUsuarios.getValueAt(fila, 4);                
-            }else{
-                estado = (String) jTUsuarios.getValueAt(fila-1, 4);
+                estado = (String) jTUsuarios.getValueAt(fila, 4);
+            } else {
+                estado = (String) jTUsuarios.getValueAt(fila - 1, 4);
             }
             ponerNombreBoton(estado);
         }
     }//GEN-LAST:event_jTUsuariosKeyPressed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void jBEstadoBloqueoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEstadoBloqueoActionPerformed
+        try {
+            if (jTUsuarios.getSelectedRow() >= 0) {
+                long identificacion = (long) jTUsuarios.getValueAt(jTUsuarios.getSelectedRow(), 0);
+                String id = identificacion + "";
+                int dato = JOptionPane.showConfirmDialog(null, "Desea cambiar el estado de habilitado del usuario: " + id, "Cambiar Estado Usuario",
+                        0, JOptionPane.QUESTION_MESSAGE);
+                if (dato == JOptionPane.YES_OPTION) {
+                    switch (jBEstadoBloqueo.getText()) {
+                        case BLOQUEAR:
+                            controlador.cambiarEstadoBloqueoUsuario(identificacion, true);
+                            break;
+                        case DESBLOQUEAR:
+                            controlador.cambiarEstadoBloqueoUsuario(identificacion, false);
+                            break;
+                    }
+                    listarUsuariosRegistrados("");
+                }
+            }
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_jBEstadoBloqueoActionPerformed
 
     public void ponerNombreBoton(String estado) {
         switch (estado) {
-            case "Bloqueado":
-                jButton1.setText("Desbloquear");
+            case BLOQUEADO:
+                jBEstadoBloqueo.setText(DESBLOQUEAR);
                 break;
-            case "Desbloqueado":
-                jButton1.setText("Bloquear");
+            case DESBLOQUEADO:
+                jBEstadoBloqueo.setText(BLOQUEAR);
                 break;
         }
     }
 
-    public void listarUsuariosNoRegistrados(String parametro) {
+    public void listarUsuariosRegistrados(String parametro) {
         try {
             List<Persona> usuarios = controlador.listarUsuarioRegistrados(parametro);
             DefaultTableModel tabla = (DefaultTableModel) jTUsuarios.getModel();
@@ -200,9 +226,9 @@ public class VentanaEstadoBloqueoUsuarios extends javax.swing.JInternalFrame {
                     fila[1] = "Director";
                 }
                 if (usuario.isBloqueado()) {
-                    fila[4] = "Bloqueado";
+                    fila[4] = BLOQUEADO;
                 } else {
-                    fila[4] = "Desbloqueado";
+                    fila[4] = DESBLOQUEADO;
                 }
                 tabla.addRow(fila);
             }
@@ -211,7 +237,7 @@ public class VentanaEstadoBloqueoUsuarios extends javax.swing.JInternalFrame {
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jBEstadoBloqueo;
     private javax.swing.JLabel jLTitulo;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTFFiltroBusqueda;

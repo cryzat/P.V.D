@@ -56,7 +56,7 @@ public class UsuarioBO extends BOGenerico {
         IUsuarioDAO usuario = fabrica.crearDAOUsuario();
         Persona entidad = buscarUsuario(identificacion);
         if (entidad != null) {
-            entidad.setEliminado(true);
+            entidad.setBloqueado(valor);
             usuario.editar(entidad);
         } else {
             throw new Exception();
