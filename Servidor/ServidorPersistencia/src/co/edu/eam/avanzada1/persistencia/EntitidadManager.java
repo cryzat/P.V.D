@@ -17,7 +17,6 @@ public class EntitidadManager {
 
     private EntitidadManager() {
         entity = Persistence.createEntityManagerFactory("DBPersistencia").createEntityManager();
-
     }
 
     public static EntityManager getInstance() {

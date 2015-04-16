@@ -16,7 +16,8 @@ import javax.persistence.*;
 @Inheritance(strategy = InheritanceType.JOINED)
 @NamedQueries(value = {
     @NamedQuery(name = Persona.CONSULTAR_USUARIOS_REGISTRADOS,
-            query = "SELECT p FROM Persona p WHERE p.nombre LIKE ?1 AND p.password is not null"),
+            query = "SELECT p FROM Persona p WHERE p.nombre LIKE ?1 AND p.password is not null"
+                    + " AND p.eliminado=0"),
     @NamedQuery(name = Persona.CONSULTAR_USUARIOS_NO_REGISTRADOS,
             query = "SELECT p FROM Persona p WHERE p.nombre LIKE ?1 AND p.password is null"),})
 public class Persona implements Serializable {
@@ -41,22 +42,15 @@ public class Persona implements Serializable {
     @ManyToOne
     @JoinColumn(name = "id", nullable = false)
     private TipoDocumento documento;
+    @Column(name="bloqueado",nullable = false)
+    private boolean bloqueado;
+    @Column(name="eliminado",nullable = false)
+    private boolean eliminado;
 
     public Persona() {
         super();
     }
-
-    public Persona(long numeroDocumento, String nombre, String apellido, String correo, int telefono, String direccion, String password, TipoDocumento documento) {
-        this.numeroDocumento = numeroDocumento;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.correo = correo;
-        this.telefono = telefono;
-        this.direccion = direccion;
-        this.password = password;
-        this.documento = documento;
-    }
-
+    
     public String getApellido() {
         return apellido;
     }
@@ -119,5 +113,21 @@ public class Persona implements Serializable {
 
     public void setTelefono(long telefono) {
         this.telefono = telefono;
+    }
+
+    public boolean isBloqueado() {
+        return bloqueado;
+    }
+
+    public void setBloqueado(boolean bloqueado) {
+        this.bloqueado = bloqueado;
+    }
+
+    public boolean isEliminado() {
+        return eliminado;
+    }
+
+    public void setEliminado(boolean eliminado) {
+        this.eliminado = eliminado;
     }
 }

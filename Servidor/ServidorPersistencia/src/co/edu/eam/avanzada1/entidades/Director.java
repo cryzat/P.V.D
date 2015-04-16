@@ -19,7 +19,4 @@ public class Director extends Persona {
         super();
     }
 
-    public Director(long numeroDocumento, String nombre, String apellido, String correo, int telefono, String direccion, String password, TipoDocumento documento) {
-        super(numeroDocumento, nombre, apellido, correo, telefono, direccion, password, documento);
-    }
 }

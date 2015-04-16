@@ -21,11 +21,6 @@ public class Estudiante extends Persona{
         super();
     }
 
-    public Estudiante(int codigo, long numeroDocumento, String nombre, String apellido, String correo, int telefono, String direccion, String password, TipoDocumento documento) {
-        super(numeroDocumento, nombre, apellido, correo, telefono, direccion, password, documento);
-        this.codigo = codigo;
-    }
-
     public int getCodigo() {
         return codigo;
     }
